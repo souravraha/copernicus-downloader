@@ -1,0 +1,9 @@
+# Copernicus/CDSE credentials (https://dataspace.copernicus.eu login — your normal account)
+# eodag cop_dataspace needs only the account email + password (no API key/secret):
+EODAG__cop_dataspace__auth__credentials__username="your.email@example.com"
+EODAG__cop_dataspace__auth__credentials__password="your-password"
+
+# Optional, for long/bulk runs — S3 key pair from
+# https://eodata-s3keysmanager.dataspace.copernicus.eu/panel/s3-credentials :
+# EODAG__cop_dataspace_s3__auth__credentials__aws_access_key_id=...
+# EODAG__cop_dataspace_s3__auth__credentials__aws_secret_access_key=...
