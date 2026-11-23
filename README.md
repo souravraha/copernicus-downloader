@@ -87,4 +87,4 @@ Per run, in `--out`:
 
 - `search_results.geojson` — the STAC item list returned by the search
 - `manifest.json` — provider, per-granule status / elapsed time, paths
-- extracted per-band GeoTIFFs + the original granule zip
+- the extracted granule directory (per-band JP2 + metadata) + the original granule zip
