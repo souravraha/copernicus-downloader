@@ -50,7 +50,7 @@ import argparse
 import json
 import math
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 
@@ -169,6 +169,9 @@ def search(args: argparse.Namespace):
         f"cloud<{args.cloud_max:.0f}% | provider={args.provider}"
     )
 
+    # cop_dataspace (OData) consumes the cloud cap via the ``eo:cloud_cover``
+    # query key with a ``<=`` bound; the older ``cloudCover_lt`` spelling is
+    # silently ignored by that provider.
     dag = EODataAccessGateway()
     try:
         hits = dag.search(
@@ -177,8 +180,8 @@ def search(args: argparse.Namespace):
             start=args.start,
             end=args.end,
             geom=geom,
-            cloudCover_lt=args.cloud_max,
             max_records=args.limit,
+            **{"eo:cloud_cover": args.cloud_max},
         )
     except EodagError as e:
         # every meaningful eodag failure (auth, no data, unknown provider/collection,
@@ -263,7 +266,7 @@ def main(argv: list[str] | None = None) -> None:
     )
 
     manifest = {
-        "downloaded": datetime.now(timezone.utc).isoformat(),
+        "downloaded": datetime.now(UTC).isoformat(),
         "provider": args.provider,
         "results": {"ok": len(paths), "elapsed_s": round(time.time() - t0, 1)},
         "paths": [str(p) for p in paths],

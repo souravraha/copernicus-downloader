@@ -43,10 +43,8 @@ python scripts/download_copernicus.py --provider cop_dataspace_s3 ...
 
 ## Setup
 
-```bash
-python -m venv .venv && . .venv/bin/activate
-pip install -r requirements.txt
-```
+This is a pixi project (deps: `eodag`, `shapely`). Credentials stay in
+`.envrc.local` (see above).
 
 ## Usage
 
@@ -54,14 +52,17 @@ Run from the repo root:
 
 ```bash
 # search + list Sentinel-2 L2A over the Delhi-NCR benchmark site
-python scripts/download_copernicus.py \
+pixi run python scripts/download_copernicus.py \
     --site delhi-urban --start 2025-01-01 --end 2025-02-28 --preview
 
 # same search, then download up to 2 granules (each ~200-600 MiB zip, auto-extracted)
-python scripts/download_copernicus.py \
+pixi run python scripts/download_copernicus.py \
     --site delhi-urban --start 2025-01-01 --end 2025-02-28 \
     --download --max-downloads 2
 ```
+
+`pixi run preview` / `pixi run download` are pre-wired shortcuts for the
+Delhi-NCR Jan–Feb 2025 site.
 
 ### AOI options (one required)
 
